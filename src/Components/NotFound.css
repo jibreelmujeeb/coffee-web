@@ -1,0 +1,23 @@
+.not-found-container {
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  .not-found-container h1 {
+    font-size: 5rem;
+    color: #ff0000; 
+  }
+  
+  .not-found-container h2 {
+    font-size: 2rem;
+  }
+  
+  .not-found-container p {
+    font-size: 1.2rem;
+  }
+  
+  .not-found-container .btn {
+    margin-top: 20px;
+    font-size: 13px;
+  }
+  
