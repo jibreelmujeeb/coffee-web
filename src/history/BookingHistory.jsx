@@ -60,6 +60,7 @@ const BookingHistory = () => {
               <th scope="col">People</th>
               <th scope="col">Delivered</th>
               <th scope="col">Booking Type</th>
+              <th scope="col">Status</th>
               <th scope="col">Comment</th>
               <th scope="col">Action</th>
             </tr>
@@ -73,6 +74,7 @@ const BookingHistory = () => {
                 <td>{booking.numberOfPeople}</td>
                 <td>{booking.delivered? "Delivered": "Not delivered"}</td>
                 <td>{booking.bookingType}</td>
+                <td>{booking.status}</td>
                 <td>{booking.comment}</td>
                 <td>
                   <button className="btn btn-danger " onClick={()=>{deleteBooking(booking._id)}}>

@@ -4,7 +4,6 @@ import SignupForm from "./Components/Signup";
 import LoginForm from "./Components/Login";
 import ErrorPage from "./Components/ErrorPage";
 import AdminLogin from "./Components/AdLogin";
-// import AdminSignup from "./Components/Adsignup";
 import NotFound from "./Components/Notfound";
 import Landing from "./Components/landingPage";
 import Home from "./Home/Home";
@@ -17,7 +16,7 @@ import AdminToken from "./Components/verifyToken";
 import ForgotPassword from "./Components/forgetPassword";
 import ResetPassword from "./Components/ResetPassword";
 import AdResetPassword from "./Components/AdResetPassword";
-// import AdSignup from "./Components/AdSignup";
+import AdSignup from "./Components/AdSignup";
 
 const App = () => {
   return (
@@ -29,7 +28,7 @@ const App = () => {
       <Route path="/admin/dashboard" element={<Admin />} />
       <Route path="/admin/token/:token" element={<AdminToken />} />
       <Route path="/admin/login" element={<AdminLogin />} />
-      {/* <Route path="/admin/register" element={<AdSignup />} /> */}
+      <Route path="/admin/register" element={<AdSignup />} />
       <Route path="/home" element={<Home />} />
       <Route path="/reserve" element={<Reserve />} />
       <Route path="/history" element={<BookingHistory />} />

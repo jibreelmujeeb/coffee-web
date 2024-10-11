@@ -207,7 +207,9 @@ const Admin = () => {
                   <th scope="col">People</th>
                   <th scope="col">bookingType</th>
                   <th scope="col">Comment</th>
+                  <th scope="col">Status</th>
                   <th scope="col">Delivered</th>
+                  
                 </tr>
               </thead>
               <tbody>
@@ -222,6 +224,7 @@ const Admin = () => {
                       <td>{booking.numberOfPeople}</td>
                       <td>{booking.bookingType}</td>
                       <td>{booking.comment}</td>
+                      <td>{booking.status}</td>
                       <td>
                         {!booking.delivered ? (
                           <button

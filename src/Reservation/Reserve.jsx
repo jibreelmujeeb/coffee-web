@@ -24,7 +24,9 @@ const navigate = useNavigate()
     date: '',
     bookingType: '',
     numberOfPeople: '',
-    comment: ''
+    comment: '',
+    amount: 0,
+    Price:0
     
   });
 
@@ -40,9 +42,10 @@ const navigate = useNavigate()
   const handleSubmit = (e) => {
     e.preventDefault();
     // Log form data
-        axios.post('http://localhost:3000/booking', formData).then((response)=>{
+        axios.post('http://localhost:3000/booking', {...formData, amount: 10000*formData.amount}).then((response)=>{
 
             if(response.data.status){
+                window.location.href = response.data.authorization_url
                 Swal.fire({
                     icon: "success",
                     title: "Good job",
@@ -87,12 +90,16 @@ const navigate = useNavigate()
                               <input type="date" name="date" className="form-control" required value={formData.date} onChange={handleChange} />
                             </div>
                             <div className="col-lg-6 col-12">
+                              <input type="number" name="amount" className="form-control" placeholder='Quantity' value={formData.amount} onChange={handleChange} />
+                            </div>
+                            <div className="col-lg-6 col-12">
                               <select name="bookingType" className='w-100 border bg-transparent' style={{ height: "40px" }} value={formData.bookingType} onChange={handleChange}>
                                 <option value="" disabled>Booking type</option>
                                 <option value="Pick it up">Pick it up</option>
                                 <option value="Delivery by company">Delivery by company</option>
                               </select>
                             </div>
+            
                             <div className="col-lg-12 col-12 mt-4">
                               <input type="number" name="numberOfPeople" className="form-control" placeholder="Number of People" required value={formData.numberOfPeople} onChange={handleChange} />
                               <textarea name="comment" rows="3" className="form-control" placeholder="Comment and Address" value={formData.comment} onChange={handleChange}></textarea>
