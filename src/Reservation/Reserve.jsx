@@ -102,7 +102,7 @@ const navigate = useNavigate()
             
                             <div className="col-lg-12 col-12 mt-4">
                               <input type="number" name="numberOfPeople" className="form-control" placeholder="Number of People" required value={formData.numberOfPeople} onChange={handleChange} />
-                              <textarea name="comment" rows="3" className="form-control" placeholder="Comment and Address" value={formData.comment} onChange={handleChange}></textarea>
+                              <textarea name="comment" rows="3" className="form-control" placeholder="what you want and Your Address" value={formData.comment} onChange={handleChange}></textarea>
                             </div>
                             <div className="col-lg-4 col-md-10 col-8 mx-auto mt-2">
                               <button type="submit" className="form-control">Submit</button>
