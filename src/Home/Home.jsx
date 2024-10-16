@@ -307,7 +307,7 @@ const Home = () => {
 
                     <span className="underline"></span>
 
-                    <strong className="ms-auto">#5,000</strong>
+                    <strong className="ms-auto">₦5,000</strong>
                   </div>
 
                   <div className="border-top mt-2 pt-2">
@@ -322,10 +322,10 @@ const Home = () => {
                     <span className="underline"></span>
 
                     <strong className="text-white ms-auto">
-                      <del>#10,000</del>
+                      <del>₦10,000</del>
                     </strong>
 
-                    <strong className="ms-2">#15,000</strong>
+                    <strong className="ms-2">₦15,000</strong>
                   </div>
 
                   <div className="border-top mt-2 pt-2">
@@ -342,7 +342,7 @@ const Home = () => {
 
                     <span className="underline"></span>
 
-                    <strong className="ms-auto">#5,000</strong>
+                    <strong className="ms-auto">₦5,000</strong>
                   </div>
 
                   <div className="border-top mt-2 pt-2">
@@ -352,11 +352,11 @@ const Home = () => {
 
                 <div className="menu-block my-4">
                   <div className="d-flex">
-                    <h6>Pancakes</h6>
+                    <h6>Doughnut</h6>
 
                     <span className="underline"></span>
 
-                    <strong className="ms-auto">#12,000</strong>
+                    <strong className="ms-auto">₦12,000</strong>
                   </div>
 
                   <div className="border-top mt-2 pt-2">
@@ -370,7 +370,7 @@ const Home = () => {
 
                     <span className="underline"></span>
 
-                    <strong className="ms-auto">#20,000</strong>
+                    <strong className="ms-auto">₦20,000</strong>
                   </div>
 
                   <div className="border-top mt-2 pt-2">
@@ -394,10 +394,10 @@ const Home = () => {
                     <span className="underline"></span>
 
                     <strong className="text-white ms-auto">
-                      <del>#15,000</del>
+                      <del>₦15,000</del>
                     </strong>
 
-                    <strong className="ms-2">#1,500</strong>
+                    <strong className="ms-2">₦1,500</strong>
                   </div>
 
                   <div className="border-top mt-2 pt-2">
@@ -414,7 +414,7 @@ const Home = () => {
 
                     <span className="underline"></span>
 
-                    <strong className="ms-auto">#30,000</strong>
+                    <strong className="ms-auto">₦30,000</strong>
                   </div>
 
                   <div className="border-top mt-2 pt-2">
@@ -428,7 +428,7 @@ const Home = () => {
 
                     <span className="underline"></span>
 
-                    <strong className="ms-auto">#25,000</strong>
+                    <strong className="ms-auto">₦25,000</strong>
                   </div>
 
                   <div className="border-top mt-2 pt-2">
@@ -442,7 +442,7 @@ const Home = () => {
 
                     <span className="underline"></span>
 
-                    <strong className="ms-auto">#20,000</strong>
+                    <strong className="ms-auto">₦20,000</strong>
                   </div>
 
                   <div className="border-top mt-2 pt-2">
@@ -456,7 +456,7 @@ const Home = () => {
 
                     <span className="underline"></span>
 
-                    <strong className="ms-auto">#30,000</strong>
+                    <strong className="ms-auto">₦30,000</strong>
                   </div>
 
                   <div className="border-top mt-2 pt-2">
