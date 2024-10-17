@@ -134,6 +134,9 @@ const Admin = () => {
         }
       });
   };
+
+  console.log(allBooking);
+  
   return (
     <div>
       <h6> Username: {admindet?.username}</h6>
@@ -206,6 +209,7 @@ const Admin = () => {
                   <th scope="col">Date</th>
                   <th scope="col">People</th>
                   <th scope="col">bookingType</th>
+                  <th scope="col">Menu selector</th>
                   <th scope="col">Comment</th>
                   <th scope="col">Status</th>
                   <th scope="col">Delivered</th>
@@ -223,6 +227,12 @@ const Admin = () => {
                       <td>{booking.date}</td>
                       <td>{booking.numberOfPeople}</td>
                       <td>{booking.bookingType}</td>
+                      <td>{booking?.menuSelect.map( menu => (
+                        <div className="text">
+                          <p>{menu.name}</p>
+                          <p>{menu.amount}</p>
+                        </div>
+                      ))}</td>
                       <td>{booking.comment}</td>
                       <td>{booking.status}</td>
                       <td>

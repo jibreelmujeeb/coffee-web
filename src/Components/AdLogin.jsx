@@ -9,8 +9,11 @@ const AdSignup = () => {
     email: "",
     password: "",
   });
+  
+  const [showPassword, setShowPassword] = useState(false); // State for password visibility
 
   const navigate = useNavigate();
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -21,7 +24,8 @@ const AdSignup = () => {
     console.log("User Input:", formData);
 
     axios
-      .post("http://localhost:3000/admin/login", formData).then((result) => {
+      .post("http://localhost:3000/admin/login", formData)
+      .then((result) => {
         if (result.data.status) {
           Swal.fire({
             icon: "success",
@@ -45,7 +49,10 @@ const AdSignup = () => {
       .catch((error) => {
         console.log(error);
       });
-    // You can add further logic here (e.g., form validation or API request)
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword); // Toggle password visibility
   };
 
   return (
@@ -92,14 +99,23 @@ const AdSignup = () => {
                         </div>
 
                         <div className="form-outline mb-4">
-                          <input
-                            type="password"
-                            name="password"
-                            value={formData.password}
-                            onChange={handleInputChange}
-                            className="form-control form-control-lg"
-                            required
-                          />
+                          <div className="input-group">
+                            <input
+                              type={showPassword ? "text" : "password"}
+                              name="password"
+                              value={formData.password}
+                              onChange={handleInputChange}
+                              className="form-control form-control-lg"
+                              required
+                            />
+                            <button
+                              type="button"
+                              className="btn btn-outline-secondary mt-1"
+                              onClick={togglePasswordVisibility}
+                            >
+                              {showPassword ? "Hide" : "Show"}
+                            </button>
+                          </div>
                           <label className="form-label">Password</label>
                         </div>
 
@@ -112,9 +128,9 @@ const AdSignup = () => {
                           </button>
                         </div>
 
-                        <Link to='/admin/forgot-password'><a className="small text-muted" href="#!">
-                          Forgot password?
-                        </a></Link>
+                        <Link to='/admin/forgot-password'>
+                          <a className="small text-muted" href="#!">Forgot password?</a>
+                        </Link>
                         <br />
                         <span>Don't have an account?</span>
                         <a

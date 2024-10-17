@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../Components/Navbar";
-import axios from "axios";
+import axios, { all } from "axios";
 import Swal from "sweetalert2";
 
 const BookingHistory = () => {
@@ -13,8 +13,7 @@ const BookingHistory = () => {
         console.log(response.data);
         setallBooking(response.data.bookings);
       })
-      .catch((error) => {
-      });
+      .catch((error) => {});
   };
 
   useEffect(() => {
@@ -22,8 +21,9 @@ const BookingHistory = () => {
   }, []);
 
   const deleteBooking = (booking) => {
-    axios.delete(`http://localhost:3000/deletebooking?id=${booking}`)
-     .then((response) => {
+    axios
+      .delete(`http://localhost:3000/deletebooking?id=${booking}`)
+      .then((response) => {
         console.log(response.data);
         if (response.data.status) {
           Swal.fire({
@@ -32,7 +32,7 @@ const BookingHistory = () => {
             text: response.data.msg,
           });
           getbooking();
-        }else{
+        } else {
           Swal.fire({
             icon: "error",
             title: "Oops",
@@ -40,56 +40,75 @@ const BookingHistory = () => {
           });
         }
       })
-     .catch((error) => {
+      .catch((error) => {
         console.log(error);
       });
-  }
+  };
+
   return (
     <div>
       <Navbar />
 
-      <h5 className="px-2">Welcome {first?.fulllname}, {allBooking.length} booking found</h5>
+      <h5 className="px-2">
+        Welcome {first?.fulllname}, {allBooking.length} booking found
+      </h5>
 
-      {allBooking.length > 0 ? (
-        <table className="table table-stripped">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Time</th>
-              <th scope="col">Date</th>
-              <th scope="col">People</th>
-              <th scope="col">Delivered</th>
-              <th scope="col">Booking Type</th>
-              <th scope="col">Status</th>
-              <th scope="col">Comment</th>
-              <th scope="col">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {allBooking.map((booking, index) => (
-              <tr key={index}>
-                <th scope="row">{index + 1}</th>
-                <td>{booking.time}</td>
-                <td>{booking.date}</td>
-                <td>{booking.numberOfPeople}</td>
-                <td>{booking.delivered? "Delivered": "Not delivered"}</td>
-                <td>{booking.bookingType}</td>
-                <td>{booking.status}</td>
-                <td>{booking.comment}</td>
-                <td>
-                  <button className="btn btn-danger " onClick={()=>{deleteBooking(booking._id)}}>
-                    {booking.delivered?"Delete order":"Cancel order"}
-                    </button>
-                </td>
+      <div className="booking">
+        {allBooking.length > 0 ? (
+          <table className="table table-stripped">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Time</th>
+                <th scope="col">Date</th>
+                <th scope="col">People</th>
+                <th scope="col">Delivered</th>
+                <th scope="col">Status</th>
+                <th scope="col">Menu selector</th>
+                <th scope="col">Comment</th>
+                <th scope="col">booking Type</th>
+                <th scope="col">Action</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      ) : (
-        <div className="bg-light p-5 rounded text-center col-11 mx-auto shadow-sm">
-          <h6>You have no booking</h6>
-        </div>
-      )}
+            </thead>
+            <tbody>
+              {allBooking.map((booking, index) => (
+                <tr key={index}>
+                  <th scope="row">{index + 1}</th>
+                  <td>{booking.time}</td>
+                  <td>{booking.date}</td>
+                  <td>{booking.numberOfPeople}</td>
+                  <td>{booking.delivered ? "Delivered" : "Not delivered"}</td>
+                  <td>{booking.status}</td>
+                  <td>
+                    {booking?.menuSelect.map((menu) => (
+                      <div className="men">
+                        <p>{menu.name}</p>
+                        <p>{menu.amount}</p>
+                      </div>
+                    ))}
+                  </td>
+                  <td>{booking.comment}</td>
+                  <td>{booking.bookingType}</td>
+                  <td>
+                    <button
+                      className="btn btn-danger "
+                      onClick={() => {
+                        deleteBooking(booking._id);
+                      }}
+                    >
+                      {booking.delivered ? "Delete order" : "Cancel order"}
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <div className="bg-light p-5 rounded text-center col-11 mx-auto shadow-sm">
+            <h6>You have no booking</h6>
+          </div>
+        )}
+      </div>
       <footer className="site-footer">
         <div className="container">
           <div className="row">

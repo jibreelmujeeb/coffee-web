@@ -28,7 +28,8 @@ const Reserve = () => {
     comment: "",
     amount: 0,
     menuSelect: [],
-    menuAmounts: {}, // Object to store amounts for each menu item
+    menuAmounts: {},
+    paymentType: true, // Object to store amounts for each menu item
   });
 
   // Handle input change
@@ -83,43 +84,61 @@ const Reserve = () => {
     DarkChocolate: 30000,
     WhiteCoffeeRecommend: 30000,
   };
-  
   const calculateTotalAmount = (formData) => {
     const { menuSelect, menuAmounts } = formData;
-  
+
     // Calculate total amount based on selected menu and their quantities
     const totalAmount = menuSelect.reduce((total, menu) => {
       const quantity = parseInt(menuAmounts[menu], 10); // Ensure quantity is treated as a number
       const price = menuPrices[menu];
       console.log(quantity, price);
-      
-      
+
       // Ensure we only calculate if the menu item exists in the prices list and has a valid quantity
       if (price && quantity > 0) {
         total += price * quantity;
       }
-  
+
       return total;
     }, 0); // 0 is the initial value of the total amount
-  
+
     return totalAmount;
   };
 
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Calculate the total amount based on the selected menu items
     let totalAmount = calculateTotalAmount(formData);
+
+    // Ensure menuSelect is properly formatted
+    const formattedMenuSelect = formData.menuSelect.map((menuItem) => ({
+      name: menuItem,
+      amount: formData.menuAmounts[menuItem],
+    }));
+    console.log('submitting');
+    
+
     axios
       .post("http://localhost:3000/booking", {
         ...formData,
         amount: totalAmount,
+        menuSelect: formattedMenuSelect, // Include formatted menuSelect data
       })
       .then((response) => {
         if (response.data.status) {
+          if (response.data.authorization_url == null) {
+            Swal.fire({
+              icon: "success",
+              title: "Good job",
+              text: response.data.msg,
+            });
+            return;
+          }
           window.location.href = response.data.authorization_url;
           Swal.fire({
             icon: "success",
-            title: "Good job",
+            title: "You will be redirected",
             text: response.data.msg,
           });
         }
@@ -215,6 +234,22 @@ const Reserve = () => {
 
                             <div className="col-lg-6 col-12 mt-3">
                               <select
+                                name="paymentType"
+                                className="w-100 border bg-transparent"
+                                style={{ height: "40px" }}
+                                value={formData.paymentType}
+                                onChange={handleChange}
+                              >
+                                <option value="" disabled>
+                                  payment type
+                                </option>
+                                <option value={true}>yes</option>
+                                <option value={false}>No</option>
+                              </select>
+                            </div>
+
+                            <div className="col-lg-6 col-12 mt-3">
+                              <select
                                 name="menuSelect"
                                 multiple
                                 className="w-100 border bg-transparent"
@@ -225,16 +260,35 @@ const Reserve = () => {
                                 <option value="" disabled>
                                   Menu selector
                                 </option>
-                                <option value="Pancake">Pancakes(₦5,000)</option>
-                                <option value="Toasted">Toasted Waffle( ₦15,000)</option>
-                                <option value="ChipsRecommend"> Fried ChipsRecommend(₦5,000)</option>
-                                <option value="Doughnut">Doughnut(₦12,000)</option>
-                                <option value="Banana">Banana Cakes(₦20,000)</option>
+                                <option value="Pancake">
+                                  Pancakes(₦5,000)
+                                </option>
+                                <option value="Toasted">
+                                  Toasted Waffle( ₦15,000)
+                                </option>
+                                <option value="ChipsRecommend">
+                                  {" "}
+                                  Fried ChipsRecommend(₦5,000)
+                                </option>
+                                <option value="Doughnut">
+                                  Doughnut(₦12,000)
+                                </option>
+                                <option value="Banana">
+                                  Banana Cakes(₦20,000)
+                                </option>
                                 <option value="Latte">Latte(₦1,500)</option>
-                                <option value="WhiteCoffeeRecommend">White CoffeeRecommend(₦30,000)</option>
-                                <option value="ChocolateMilk">Chocolate Milk(₦25,000)</option>
-                                <option value="Greentea">Greentea(₦20,000)</option>
-                                <option value="DarkChocolate">Dark Chocolate(₦30,000)</option>
+                                <option value="WhiteCoffeeRecommend">
+                                  White CoffeeRecommend(₦30,000)
+                                </option>
+                                <option value="ChocolateMilk">
+                                  Chocolate Milk(₦25,000)
+                                </option>
+                                <option value="Greentea">
+                                  Greentea(₦20,000)
+                                </option>
+                                <option value="DarkChocolate">
+                                  Dark Chocolate(₦30,000)
+                                </option>
                               </select>
                             </div>
 
@@ -295,13 +349,12 @@ const Reserve = () => {
               </div>
             </div>
           </section>
+
           <footer className="site-footer">
             <div className="container">
               <div className="row">
                 <div className="col-lg-4 col-12 me-auto">
-                  <em className="text-white d-block mb-4">
-                    Where to find us?
-                  </em>
+                  <em className="text-white d-block mb-4">Where to find us?</em>
 
                   <strong className="text-white">
                     <i className="bi-geo-alt me-2"></i>
@@ -310,26 +363,28 @@ const Reserve = () => {
 
                   <ul className="social-icon mt-4">
                     <li className="social-icon-item">
-                      <a
-                        href="#"
-                        className="social-icon-link bi-facebook"
-                      ></a>
+                      <a href="#" className="social-icon-link bi-facebook"></a>
                     </li>
 
-                    {/* <li className="social-icon-item">
+                    <li className="social-icon-item">
                       <a
                         href="https://x.com/minthu"
                         target="_new"
                         className="social-icon-link bi-twitter"
-                      ></a */}
-</ul>
-</div>
-</div>
-</div>
-</footer>
-</main>
-</div>
-</div>
-  )};
+                      ></a>
+                    </li>
+                    <li className="social-icon-item">
+                      <a href="#" className="social-icon-link bi-whatsapp"></a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </footer>
+        </main>
+      </div>
+    </div>
+  );
+};
 
-  export default Reserve;
+export default Reserve;
